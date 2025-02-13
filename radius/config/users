@@ -1,0 +1,28 @@
+tester	Cleartext-Password := "tester"
+    Reply-Message := "Hello, %{User-Name}"
+    SNR-User-Priv = 15
+radoper	Cleartext-Password := "radoper"
+    SNR-User-Priv = 10
+raduser	Cleartext-Password := "raduser"
+    SNR-User-Priv = 1
+$enab15$	Cleartext-Password := "enablepass"
+
+000001343101 Cleartext-Password := "000001343101", Class := "tarif1"
+000001343102 Cleartext-Password := "000001343102"
+
+00-00-01-34-31-01 Cleartext-Password := "00-00-01-34-31-01"
+00-00-01-34-31-02 Cleartext-Password := "00-00-01-34-31-02"
+
+08-97-98-90-80-83 Cleartext-Password := "incorrect"
+  Tunnel-Type = 13,
+  Tunnel-Medium-Type = 6,
+  Tunnel-Private-Group-ID = "1"
+c2-01-32-48-00-00 Cleartext-Password := "c2-01-32-48-00-00"
+  Tunnel-Type = 13,
+  Tunnel-Medium-Type = 6,
+  Tunnel-Private-Group-ID = "10"
+00-d8-61-6f-e4-cc Cleartext-Password := "00-d8-61-6f-e4-cc"
+  Tunnel-Type = 13,
+  Tunnel-Medium-Type = 6,
+  Tunnel-Private-Group-ID = "100",
+  Class := "tarif1"

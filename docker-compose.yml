@@ -1,0 +1,72 @@
+services:
+  kea-dhcp4:
+    build: ./dhcp
+    container_name: kea_dhcp4
+    network_mode: "host"
+    volumes:
+      - ./dhcp/kea-dhcp4.conf:/etc/kea/kea-dhcp4.conf
+    restart: unless-stopped
+    logging:
+      options:
+        max-size: 10m
+        max-file: "3"
+        
+  kea-dhcp6:
+    build: ./dhcpv6
+    container_name: kea-dhcp6
+    network_mode: "host"
+    volumes:
+      - ./dhcpv6/kea-dhcp6.conf:/etc/kea/kea-dhcp6.conf
+    restart: unless-stopped
+    logging:
+      options:
+        max-size: 10m
+        max-file: "3"    
+
+  radius:
+    build: ./radius
+    container_name: radius_server
+    ports:
+      - "1812:1812/udp"  # Аутентификация RADIUS
+      - "1813:1813/udp"  # Логирование (Accounting)
+    volumes:
+      - ./radius/config:/etc/freeradius
+    network_mode: host
+    restart: unless-stopped
+    logging:
+      options:
+        max-size: 10m
+        max-file: "3"
+
+  tacacs:
+    build: ./tacacs
+    container_name: tacacs_server
+    ports:
+      - "49:49/tcp"
+    volumes:
+      - ./tacacs/config:/etc/tacacs
+    network_mode: host
+    restart: unless-stopped
+    logging:
+      options:
+        max-size: 10m
+        max-file: "3"
+
+  mcjoin:
+    build: ./mcjoin
+    container_name: mcjoin
+    network_mode: host
+    restart: unless-stopped
+
+    stdin_open: true  # для ввода команд в консоли
+    tty: true         # включить поддержку терминала
+    entrypoint: ["mcjoin"] 
+
+  multicat:
+    build: ./multicat
+    container_name: multicat
+    network_mode: host
+    restart: unless-stopped
+    stdin_open: true
+    tty: true
+    entrypoint: ["multicat"]
